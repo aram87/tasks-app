@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row m-3 justify-content-center">
+    <h2>Login</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card card-container p-3">
+        <form #ngLoginForm="ngForm" *ngIf="!isLoggedIn" name="form" (ngSubmit)="ngLoginForm.form.valid && onSubmit()" 
+          novalidate>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" name="email" [(ngModel)]="loginRequest.email" required
+              #email="ngModel" />
+            <div class="alert alert-danger" role="alert" *ngIf="ngLoginForm.submitted && email.errors">
+              Email is required!
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" [(ngModel)]="loginRequest.password" required
+              #password="ngModel" />
+            <div class="alert alert-danger" role="alert" *ngIf="ngLoginForm.submitted && password.errors">
+              <div *ngIf="password.errors['required']">Password is required</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary btn-block">
+              Login
+            </button>
+          </div>
+          <div class="form-group">
+            <div class="alert alert-danger" role="alert" *ngIf="ngLoginForm.submitted && isLoginFailed">
+              Login failed: {{ error.error }}
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

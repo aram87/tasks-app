@@ -1,0 +1,76 @@
+<div class="container mt-3">
+  <div class="row m-3 justify-content-center">
+    <h2>Sign up</h2>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card card-container p-3">
+        <form #ngSignup="ngForm" name="form" (ngSubmit)="onSubmit()" *ngIf="!isSuccessful" novalidate>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" name="email" [(ngModel)]="signupRequest.email" email
+              #email="ngModel" />
+            <div class="alert-danger" *ngIf="ngSignup.submitted && email.errors">
+              <div *ngIf="email.errors['email']">Invalid Email</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" [(ngModel)]="signupRequest.password" required
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{7,}" #password="ngModel" />
+            <div class="alert-danger" *ngIf="ngSignup.submitted && password.errors">
+              <div *ngIf="password.errors['required']">Password is required</div>
+              <div *ngIf="password.errors['pattern']"> Enter a strong password. At least one number and one uppercase
+                and
+                lowercase letter, and at least 8 or more characters.</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" class="form-control" name="confirmPassword"
+              [(ngModel)]="signupRequest.confirmPassword" required pattern="{{ password.value }}"
+              #confirmPassword="ngModel" />
+            <div class="alert-danger" *ngIf="ngSignup.submitted && confirmPassword.errors">
+              <div *ngIf="confirmPassword.errors['required']">Confirm Password is required</div>
+              <div *ngIf="confirmPassword.errors['pattern']"> Enter a strong password. At least one number and one
+                uppercase
+                and lowercase letter, and at least 8 or more characters.</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" class="form-control" name="firstName" [(ngModel)]="signupRequest.firstName" required
+              #firstName="ngModel" />
+            <div class="alert-danger" *ngIf="ngSignup.submitted && firstName.errors">
+              <div *ngIf="firstName.errors['required']">First name is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="firstName">Last Name</label>
+            <input type="text" class="form-control" name="lastName" [(ngModel)]="signupRequest.lastName" required
+              #lastName="ngModel" />
+            <div class="alert-danger" *ngIf="ngSignup.submitted && lastName.errors">
+              <div *ngIf="lastName.errors['required']">Last name is required</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <input class="btn btn-primary btn-block" type="submit" value="Sign Up" />
+          </div>
+          <div class="alert alert-warning" *ngIf="ngSignup.submitted && isSignUpFailed">
+            Signup failed!<br />{{ errorMessage }}
+          </div>
+        </form>
+        <div class="alert alert-success" *ngIf="isSuccessful">
+          Congrats! You have signed up successfully.
+          You can login now to your account.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="container mt-3">
+    <div class="row mt-2 justify-content-center">
+        <h2>My Tasks</h2>
+    </div>
+    <div class="row mt-1 mb-3 justify-content-center align-items-center">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" [(ngModel)]="newTaskString" name="newTaskTxt" />
+                <div class="input-group-append ml-2">
+                    <button class="form-control btn btn-success" (click)="addTask()">Add Task</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <div class="list-group col-sm-10 mt-2" *ngFor="let task of tasks$ | async">
+                <a role="button" (click)="updateTask(task)" class="list-group-item list-group-item-action"
+                    [ngClass]="{'list-group-item-success': task.isCompleted}">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="mb-1">{{ task.name }}</h5>
+                        <small>{{ task.ts | date }}</small>
+                    </div>
+
+                </a>
+                <button class="btn btn-danger" (click)="removeTask(task)">Remove</button>
+            </div>
+        </div>
+
+        <div class="col-sm-2"></div>
+    </div>
+</div>
